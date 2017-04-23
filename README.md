@@ -6,5 +6,8 @@ It was developed and published in 1955 by Harold Kuhn, who gave the name "Hungar
 
 We use Nvidia CUDA to speed-up calculations. 
 
+-----
+
 Requirements
+
 gcc, CUDA. 
