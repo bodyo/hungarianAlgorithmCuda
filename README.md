@@ -10,6 +10,5 @@ We use Nvidia CUDA to speed-up calculations.
 
 ## Requirements
 
-1.gcc
-
-2. Nvidia Cuda CUDA. 
+1. GCC Compiler
+2. Nvidia CUDA
