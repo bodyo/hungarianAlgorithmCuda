@@ -8,6 +8,6 @@ We use Nvidia CUDA to speed-up calculations.
 
 -----
 
-Requirements
+## Requirements
 
 gcc, CUDA. 
