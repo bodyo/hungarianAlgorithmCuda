@@ -4,11 +4,12 @@
 #include <thrust/device_vector.h>
 #include <thrust/pair.h>
 #include <thrust/device_reference.h>
-// #include <thrust/
+#include <thrust/memory.h>
 // #include <thrust/
 
 
 using namespace std;
+using namespace thrust;
 
 typedef thrust::pair<int, int> PInt;
 typedef thrust::device_vector<int> VInt;

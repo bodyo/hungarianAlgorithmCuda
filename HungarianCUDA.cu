@@ -53,7 +53,7 @@
 #define CHAR_DATA_TYPE
 
 // Uncomment to use a 4x4 predefined matrix for testing
-// #define USE_TEST_MATRIX
+#define USE_TEST_MATRIX
 
 #ifndef USE_TEST_MATRIX
 
@@ -77,11 +77,11 @@ const int n_threads_full = 512;			// Number of threads used the largest grids si
 // End of user inputs
 
 #else
-const int n = 4;
-const int log2_n = 2;
+const int n = 8;
+const int log2_n = 3;
 const int n_threads = 2;
 const int n_threads_reduction = 2;
-const int n_blocks_reduction = 2;
+const int n_blocks_reduction = 4;
 const int n_threads_full = 2;
 #endif
 
@@ -111,7 +111,14 @@ typedef unsigned char data;
 #ifndef USE_TEST_MATRIX
 data pay[ncol][nrow];
 #else
-data pay[n][n] = { { 1, 2, 3, 4 }, { 2, 4, 6, 8 }, { 3, 6, 9, 12 }, { 4, 8, 12, 16 } };
+data pay[n][n] = { 	{ 1		, 2	, 3		, 4		, 23, 56	, 57, 23 }, 
+					{ 234	, 34, 345	, 438	, 3	, 4		, 65, 56 }, 
+					{ 223	, 6	, 9		, 12	, 55, 455	, 32, 56 }, 
+					{ 43	, 28, 12	, 16	, 34, 56	, 55, 65 },
+				 	{ 1		, 2	, 3		, 4		, 23, 56	, 57, 23 }, 
+				 	{ 234	, 34, 346	, 438	, 3	, 4		, 65, 56 }, 
+				 	{ 223	, 6	, 9		, 12	, 55, 455	, 32, 56 }, 
+				 	{ 43	, 28, 12	, 16	, 34, 56	, 55, 65 },};
 #endif
 int h_column_of_star_at_row[nrow];
 int h_zeros_vector_size;
