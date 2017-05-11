@@ -12,3 +12,12 @@ We use Nvidia CUDA to speed-up calculations.
 
 1. GCC Compiler
 2. Nvidia CUDA
+
+## How to compile cuda Hungarian Algorighm
+
+ \\ Linux
+1. Open terminal and run:
+    nvcc -std=c++11 -D_MWAITXINTRIN_H_INCLUDED NameOfCudaFileCode.cu
+2. Run in terminal 
+    ./a.out
+
