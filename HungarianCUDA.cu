@@ -1,11 +1,3 @@
-// Fast CUDA implementation of the Hungarian algorithm.
-// (maximum pay version)
-//
-// Satyendra Yadav and Paulo Lopes
-// 
-// Annex to the paper: Paulo Lopes, Satyendra Yadav et al., "Fast CUDA Implementation of the Hungarian Algorithm."
-//
-//
 // Classical version of the Hungarian algorithm:
 // (This algorithm was modified to result in an efficient GPU implementation, see paper)
 //
@@ -111,14 +103,16 @@ typedef unsigned char data;
 #ifndef USE_TEST_MATRIX
 data pay[ncol][nrow];
 #else
-data pay[n][n] = { 	{ 1		, 2	, 3		, 4		, 23, 56	, 57, 23 }, 
+data pay[n][n] = { 	
+					{ 1		, 2	, 3		, 4		, 23, 56	, 57, 23 }, 
 					{ 234	, 34, 345	, 438	, 3	, 4		, 65, 56 }, 
 					{ 223	, 6	, 9		, 12	, 55, 455	, 32, 56 }, 
 					{ 43	, 28, 12	, 16	, 34, 56	, 55, 65 },
 				 	{ 1		, 2	, 3		, 4		, 23, 56	, 57, 23 }, 
 				 	{ 234	, 34, 346	, 438	, 3	, 4		, 65, 56 }, 
 				 	{ 223	, 6	, 9		, 12	, 55, 455	, 32, 56 }, 
-				 	{ 43	, 28, 12	, 16	, 34, 56	, 55, 65 },};
+				 	{ 43	, 28, 12	, 16	, 34, 56	, 55, 65 },
+				 };
 #endif
 int h_column_of_star_at_row[nrow];
 int h_zeros_vector_size;
@@ -192,12 +186,18 @@ __global__ void Init()
 const int n_rows_per_block = n / n_blocks_reduction;
 
 __device__ void max_in_rows_warp_reduce(volatile data* sdata, int tid) {
-	if (n_threads_reduction >= 64 && n_rows_per_block < 64) sdata[tid] = max(sdata[tid], sdata[tid + 32]);
-	if (n_threads_reduction >= 32 && n_rows_per_block < 32) sdata[tid] = max(sdata[tid], sdata[tid + 16]);
-	if (n_threads_reduction >= 16 && n_rows_per_block < 16) sdata[tid] = max(sdata[tid], sdata[tid + 8]);
-	if (n_threads_reduction >= 8 && n_rows_per_block < 8) sdata[tid] = max(sdata[tid], sdata[tid + 4]);
-	if (n_threads_reduction >= 4 && n_rows_per_block < 4) sdata[tid] = max(sdata[tid], sdata[tid + 2]);
-	if (n_threads_reduction >= 2 && n_rows_per_block < 2) sdata[tid] = max(sdata[tid], sdata[tid + 1]);
+	if (n_threads_reduction >= 64 && n_rows_per_block < 64) 
+		sdata[tid] = max(sdata[tid], sdata[tid + 32]);
+	if (n_threads_reduction >= 32 && n_rows_per_block < 32) 
+		sdata[tid] = max(sdata[tid], sdata[tid + 16]);
+	if (n_threads_reduction >= 16 && n_rows_per_block < 16) 
+		sdata[tid] = max(sdata[tid], sdata[tid + 8]);
+	if (n_threads_reduction >= 8 && n_rows_per_block < 8) 
+		sdata[tid] = max(sdata[tid], sdata[tid + 4]);
+	if (n_threads_reduction >= 4 && n_rows_per_block < 4) 
+		sdata[tid] = max(sdata[tid], sdata[tid + 2]);
+	if (n_threads_reduction >= 2 && n_rows_per_block < 2) 
+		sdata[tid] = max(sdata[tid], sdata[tid + 1]);
 }
 
 __global__ void max_in_rows()
